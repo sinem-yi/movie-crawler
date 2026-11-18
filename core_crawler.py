@@ -244,3 +244,13 @@ def save_csv(movies, path: str):
         for m in movies:
             w.writerow(m)
     return path
+
+if __name__ == "__main__":
+    t0 = time.perf_counter()
+    movies = crawl(pages=2, workers=1, with_detail=True)
+    print("共抓到", len(movies), "条")
+    for m in movies[:3]:
+        print(m["name_cn"], "|", m["score"], "|", m["duration"])
+    path = save_csv(movies, "movies.csv")
+    print("已保存:", path)
+    print("总耗时: %.2f 秒" % (time.perf_counter() - t0))
